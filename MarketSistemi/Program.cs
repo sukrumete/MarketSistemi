@@ -2,7 +2,15 @@
 
 string baglanti = "Server=localhost;Database=MarketDb;Trusted_Connection=True;TrustServerCertificate=True;";
 SqlConnection hat = new SqlConnection(baglanti);
-hat.Open();
+try
+{
+    hat.Open();
+}
+catch
+{
+    Console.WriteLine("Veritabanına bağlanılamadı. Lütfen bağlantı ayarlarını kontrol edin.");
+    return;
+}
 bool devam = true;
 while (devam)
 {
