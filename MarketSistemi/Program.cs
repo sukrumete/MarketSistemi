@@ -6,7 +6,7 @@ hat.Open();
 bool devam = true;
 while (devam)
 {
-    Console.WriteLine("1-)Ürünleri Listele 2-)Sipariş Ekle 3-)Siparişleri Listele 4-)Siparis Kalemleri 5-)Çıkış");
+    Console.WriteLine("1-)Ürünleri Listele 2-)Sipariş Ekle 3-)Siparişleri Listele 4-)Siparis Kalemleri 5-)Sipariş Kalemi Ekle 6-)Çıkış");
     string secim = Console.ReadLine();
 
     if (secim == "1")
@@ -33,7 +33,7 @@ while (devam)
             komut.Parameters.AddWithValue("@musteriId", musteriId);
             komut.Parameters.AddWithValue("@fiyat", fiyat);
             komut.ExecuteNonQuery();
-            Console.WriteLine("Sipariş başarıyla eklendi."); 
+            Console.WriteLine("Sipariş başarıyla eklendi.");
         }
         catch
         {
@@ -64,6 +64,29 @@ while (devam)
         oku.Close();
     }
     if (secim == "5")
+    {
+        try
+        {
+            Console.WriteLine("Lütfen Sipariş Id'sini Giriniz");
+            string siparisId = Console.ReadLine();
+            Console.WriteLine("Lütfen Ürün Id'sini Giriniz");
+            string urunId = Console.ReadLine();
+            Console.WriteLine("Lütfen Ürün Adetini Giriniz");
+            string adet = Console.ReadLine();
+            string sorgu = "Insert into SiparisKalemleri (SiparisId, UrunId, Adet) values (@siparisId, @urunId, @adet)";
+            SqlCommand komut = new SqlCommand(sorgu, hat);
+            komut.Parameters.AddWithValue("@siparisId", siparisId);
+            komut.Parameters.AddWithValue("@urunId", urunId);
+            komut.Parameters.AddWithValue("@adet", adet);
+            komut.ExecuteNonQuery();
+            Console.WriteLine("Sipariş kalemi başarıyla eklendi.");
+        }
+        catch
+        {
+            Console.WriteLine("Geçersiz bir değer girdiniz. Lütfen tekrar deneyin.");
+        }
+    }
+    if (secim == "6")
     {
         Console.WriteLine("Çıkış yapılıyor.");
         devam = false;
