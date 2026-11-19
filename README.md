@@ -1,6 +1,6 @@
 # Market Sistemi
 
-SQL Server ve C# (konsol uygulaması) ile yazdığım küçük bir market sipariş sistemi. SQL'in ikinci yarısını (JOIN, gruplama, ilişkili tablolar) öğrenmek ve bunu C# ile bağlamak için yaptığım bir öğrenme projesi.
+SQL Server ve C# (konsol uygulaması) ile yazdığım küçük bir market sipariş sistemi. C# ve SQL öğrenme sürecimdeki projelerimden biri. SQL'in ikinci yarısını (JOIN, gruplama, ilişkili tablolar) öğrenmek ve bunu C# ile bağlamak için yaptım.
 
 ## Neler yapıyor?
 
@@ -11,6 +11,18 @@ Konsolda bir menü açılır, çıkış seçilene kadar tekrar eder:
 3. Siparişleri listele (müşteri adıyla birlikte, JOIN ile)
 4. Sipariş kalemlerini listele (ürün adı, fiyat ve adet, JOIN ile)
 5. Çıkış
+
+```
+1-)Ürünleri Listele 2-)Sipariş Ekle 3-)Siparişleri Listele 4-)Siparis Kalemleri 5-)Çıkış
+3
+Mete - 35,40
+Ahmet - 50,40
+Mete - 785,40
+1-)Ürünleri Listele 2-)Sipariş Ekle 3-)Siparişleri Listele 4-)Siparis Kalemleri 5-)Çıkış
+4
+Süt - 45,00 - 2
+Ekmek - 15,00 - 1
+```
 
 ## Veritabanı
 
@@ -30,7 +42,9 @@ Gereksinimler: .NET 10, SQL Server, Microsoft.Data.SqlClient paketi.
 - SQL: CREATE TABLE, PRIMARY KEY / FOREIGN KEY, INSERT, INNER JOIN (birden fazla tabloyla), COUNT, SUM, GROUP BY, HAVING, TOP, BETWEEN, LIKE, DISTINCT
 - C#: SqlConnection, SqlCommand, SqlDataReader, ExecuteReader / ExecuteNonQuery, parametreli sorgu (@yer tutucu + AddWithValue), menü için while döngüsü ve if
 
-## Yapay zekâ yardımı 
+En çok zorlandığım konular: SQL'de tablo adı ile kutu adını karıştırmak ve JOIN'deki ON eşleşmesi. Bunları tekrar ederek oturtmaya devam ediyorum.
+
+## Yapay zekâ yardımı
 
 Bu projede Claude (yapay zekâ) ile birlikte çalıştım. Dökümü şöyle:
 
@@ -39,7 +53,7 @@ Bu projede Claude (yapay zekâ) ile birlikte çalıştım. Dökümü şöyle:
 - Kalıpları gösterdi: INSERT ... VALUES yapısı, @ yer tutucu ve AddWithValue, ExecuteReader ile ExecuteNonQuery farkı, JOIN'deki ON eşleşmesi.
 - Dört tablolu yapının (SiparisKalemleri ara tablosu) fikrini gösterdi. Menü için "devam" değişkenli while döngüsünü ve tarih için GETDATE() kullanmayı önerdi.
 - Hatalarımı bulmam için ipucu verdi (örneğin okuyucunun kapatılmaması, `=` ile `==` karışıklığı).
-- Notlarımın ve bu README'nin ilk taslağının yazılmasına yardım etti.
+- Notlarımın, bu README'nin ve GELISIM.md'nin ilk taslağının yazılmasına yardım etti.
 
 **Benim yaptığım:**
 - `Program.cs` içindeki kodu, ipuçlarıyla, satır satır kendim yazdım.
@@ -48,6 +62,8 @@ Bu projede Claude (yapay zekâ) ile birlikte çalıştım. Dökümü şöyle:
 - Test için dosyayı sıfırdan, başka bir veritabanı adıyla çalıştırdım.
 
 Yani kavramları ve kalıpları yapay zekâ gösterdi, komutları ve programı ben yazdım. Birçok yerde ipucu aldım, bunu saklamıyorum.
+
+👉 Sürüm sürüm gelişim notu: [GELISIM.md](https://github.com/sukrumete/MarketSistemi/blob/master/GELISIM.md)
 
 ## Bilinen eksikler
 
