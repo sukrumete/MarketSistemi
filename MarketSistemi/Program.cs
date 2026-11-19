@@ -22,17 +22,25 @@ while (devam)
     }
     if (secim == "2")
     {
-        Console.WriteLine("Lütfen Müşteri Id'sini Giriniz");
-        string musteriId = Console.ReadLine();
-        Console.WriteLine("Lütfen Fiyatını Giriniz");
-        string fiyat = Console.ReadLine();
-        string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
-        SqlCommand komut = new SqlCommand(sorgu, hat);
-        komut.Parameters.AddWithValue("@musteriId", musteriId);
-        komut.Parameters.AddWithValue("@fiyat", fiyat);
-        komut.ExecuteNonQuery();
-
+        try
+        {
+            Console.WriteLine("Lütfen Müşteri Id'sini Giriniz");
+            string musteriId = Console.ReadLine();
+            Console.WriteLine("Lütfen Fiyatını Giriniz");
+            string fiyat = Console.ReadLine();
+            string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
+            SqlCommand komut = new SqlCommand(sorgu, hat);
+            komut.Parameters.AddWithValue("@musteriId", musteriId);
+            komut.Parameters.AddWithValue("@fiyat", fiyat);
+            komut.ExecuteNonQuery();
+            Console.WriteLine("Sipariş başarıyla eklendi."); 
+        }
+        catch
+        {
+            Console.WriteLine("Geçersiz bir değer girdiniz. Lütfen tekrar deneyin.");
+        }
     }
+
     if (secim == "3")
     {
         string sorgu = "SELECT Isim, Soyad, Fiyat FROM Siparisler INNER JOIN Musteriler ON Musteriler.Id = Siparisler.MusteriId";
