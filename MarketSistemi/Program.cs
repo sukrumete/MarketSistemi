@@ -87,6 +87,10 @@ while (devam)
             komut.Parameters.AddWithValue("@urunId", urunId);
             komut.Parameters.AddWithValue("@adet", adet);
             komut.ExecuteNonQuery();
+            string guncelleSorgu = "UPDATE Siparisler SET Fiyat = (SELECT SUM(Fiyat * Adet) FROM SiparisKalemleri INNER JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId WHERE SiparisId = @siparisId) WHERE Id = @siparisId";
+            SqlCommand guncelleKomut = new SqlCommand(guncelleSorgu, hat);
+            guncelleKomut.Parameters.AddWithValue("@siparisId", siparisId);
+            guncelleKomut.ExecuteNonQuery();
             Console.WriteLine("Sipariş kalemi başarıyla eklendi.");
         }
         catch
