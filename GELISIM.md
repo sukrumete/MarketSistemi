@@ -1,4 +1,4 @@
-# Market Sistemi 
+# Market Sistemi
 
 MarketSistemi'ni yaparken nasıl ilerlediğimi, nerede takıldığımı ve yapay zekâdan nerede yardım aldığımı anlatan not.
 
@@ -24,7 +24,7 @@ SQL'in ikinci yarısını (JOIN, gruplama, ilişkili tablolar) öğrenmek ve bun
 - **DataReader kapatmamak:** Menü ikinci kez çalışınca "açık DataReader var" hatası aldım. `oku.Close()` yazınca çözüldü.
 - **`GO` komutu:** `MarketKurulum.sql`'i sıfırdan denerken `USE` komutu hata verdi, `GO` ile çözdük.
 
-## Yapay zekâ yardımı 
+## Yapay zekâ yardımı
 
 Çoğunlukla Claude ile çalıştım. Küçük adımlarla, önce kendim denedim, takılınca ipucu aldım.
 
@@ -33,13 +33,13 @@ SQL'in ikinci yarısını (JOIN, gruplama, ilişkili tablolar) öğrenmek ve bun
 - Kalıpları gösterdi: INSERT ... VALUES, @ yer tutucu ve AddWithValue, ExecuteReader/ExecuteNonQuery farkı, JOIN'deki ON eşleşmesi. Bazı JOIN iskeletlerini o gösterdi.
 - SiparisKalemleri ara tablosu fikrini gösterdi, menü için `devam` değişkenli döngüyü ve `GETDATE()`'i önerdi.
 - Hatalarımda ipucu verdi, düzeltmeyi çoğu zaman bana bıraktı.
-- Notlarımın ve README ile bu dosyanın ilk taslağının hazırlanmasına yardım etti.
+- Notlarımın, README'nin ve bu dosyanın ilk taslağının hazırlanmasına yardım etti.
 
 **Benim yaptığım:**
 - C# kodunu (Program.cs) ipuçlarıyla satır satır kendim yazdım.
 - SQL sorgularını SSMS'te kendim yazıp denedim.
 - `MarketKurulum.sql` içindeki tabloları ve INSERT'leri kendim yazdım. Urunler tablosunun hangi bilgileri tutacağını (isim, marka, fiyat) kendim düşündüm.
-- Notlarımı (sql-notlarim.txt) kendi dosyamda tuttum ve yazdım.
+- Notlarımı (sql-notlarim.txt) kendi dosyamda tuttum ve düzenledim. Bölümlerin taslağını yapay zekâ yazdı, ben dosyama ekleyip kontrol ettim.
 - Sıfırdan kurulumu başka bir veritabanı adıyla kendim test ettim.
 
 ## Öğrendiklerim
