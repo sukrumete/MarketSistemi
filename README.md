@@ -1,4 +1,4 @@
-# MarketSistemi
+# Market Sistemi
 
 SQL Server ve C# (konsol uygulaması) ile yazdığım küçük bir market sipariş sistemi. SQL'in ikinci yarısını (JOIN, gruplama, ilişkili tablolar) öğrenmek ve bunu C# ile bağlamak için yaptığım bir öğrenme projesi.
 
