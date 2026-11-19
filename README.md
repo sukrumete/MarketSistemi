@@ -40,7 +40,7 @@ Gereksinimler: .NET 10, SQL Server, Microsoft.Data.SqlClient paketi.
 ## Bu projede kullandığım konular
 
 - SQL: CREATE TABLE, PRIMARY KEY / FOREIGN KEY, INSERT, INNER JOIN (birden fazla tabloyla), COUNT, SUM, GROUP BY, HAVING, TOP, BETWEEN, LIKE, DISTINCT
-- C#: SqlConnection, SqlCommand, SqlDataReader, ExecuteReader / ExecuteNonQuery, parametreli sorgu (@yer tutucu + AddWithValue), menü için while döngüsü ve if
+- C#: SqlConnection, SqlCommand, SqlDataReader, ExecuteReader / ExecuteNonQuery, parametreli sorgu (@yer tutucu + AddWithValue), menü için while döngüsü ve if, try-catch
 
 En çok zorlandığım konular: SQL'de tablo adı ile kutu adını karıştırmak ve JOIN'deki ON eşleşmesi. Bunları tekrar ederek oturtmaya devam ediyorum.
 
@@ -67,13 +67,13 @@ Yani kavramları ve kalıpları yapay zekâ gösterdi, komutları ve programı b
 
 ## Bilinen eksikler
 
-- Girilen değerler kontrol edilmiyor: olmayan bir müşteri Id'si ya da harf yazılırsa program hata verip kapanır (try-catch yok).
+- Sipariş eklerken girilen değerler try-catch ile korunuyor (harf ya da olmayan müşteri Id'si programı çökertmez). Ama hata mesajı genel ("Geçersiz bir değer girdiniz"), nedenini ayırt etmiyor. Veritabanına bağlanırken oluşabilecek hatalar (SQL Server kapalıysa) için henüz try-catch yok.
 - Fiyat ondalık için nokta ile girilmeli (24.50).
 - Sipariş eklerken sadece Siparisler tablosuna yazılıyor, sipariş kalemleri C#'tan eklenmiyor. Sipariş fiyatı kalemlerden hesaplanmıyor, elle giriliyor.
 - Silme ve güncelleme yok.
 
 ## Sonraki adımlar
 
-- try-catch ile hata yönetimi
+- Bağlantı hataları için try-catch ve hata mesajlarını nedenine göre ayırmak
 - Sipariş kalemi ekleme ve toplam fiyatı otomatik hesaplama
 - Kodu metotlara ve sınıflara bölmek
