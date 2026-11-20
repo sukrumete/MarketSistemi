@@ -81,17 +81,26 @@ while (devam)
             string urunId = Console.ReadLine();
             Console.WriteLine("Lütfen Ürün Adetini Giriniz");
             string adet = Console.ReadLine();
-            string sorgu = "Insert into SiparisKalemleri (SiparisId, UrunId, Adet) values (@siparisId, @urunId, @adet)";
-            SqlCommand komut = new SqlCommand(sorgu, hat);
-            komut.Parameters.AddWithValue("@siparisId", siparisId);
-            komut.Parameters.AddWithValue("@urunId", urunId);
-            komut.Parameters.AddWithValue("@adet", adet);
-            komut.ExecuteNonQuery();
-            string guncelleSorgu = "UPDATE Siparisler SET Fiyat = (SELECT SUM(Fiyat * Adet) FROM SiparisKalemleri INNER JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId WHERE SiparisId = @siparisId) WHERE Id = @siparisId";
-            SqlCommand guncelleKomut = new SqlCommand(guncelleSorgu, hat);
-            guncelleKomut.Parameters.AddWithValue("@siparisId", siparisId);
-            guncelleKomut.ExecuteNonQuery();
-            Console.WriteLine("Sipariş kalemi başarıyla eklendi.");
+            bool adetGecerli = int.TryParse(adet, out int adetSayisi);
+            if (adetGecerli && 0 < adetSayisi)
+            {
+                string sorgu = "Insert into SiparisKalemleri (SiparisId, UrunId, Adet) values (@siparisId, @urunId, @adet)";
+                SqlCommand komut = new SqlCommand(sorgu, hat);
+                komut.Parameters.AddWithValue("@siparisId", siparisId);
+                komut.Parameters.AddWithValue("@urunId", urunId);
+                komut.Parameters.AddWithValue("@adet", adet);
+                komut.ExecuteNonQuery();
+                string guncelleSorgu = "UPDATE Siparisler SET Fiyat = (SELECT SUM(Fiyat * Adet) FROM SiparisKalemleri INNER JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId WHERE SiparisId = @siparisId) WHERE Id = @siparisId";
+                SqlCommand guncelleKomut = new SqlCommand(guncelleSorgu, hat);
+                guncelleKomut.Parameters.AddWithValue("@siparisId", siparisId);
+                guncelleKomut.ExecuteNonQuery();
+                Console.WriteLine("Sipariş kalemi başarıyla eklendi.");
+            }
+            else
+            {
+                Console.WriteLine("Adet Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
+            }
+
         }
         catch
         {
