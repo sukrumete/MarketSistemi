@@ -36,12 +36,22 @@ while (devam)
             string musteriId = Console.ReadLine();
             Console.WriteLine("Lütfen Fiyatını Giriniz");
             string fiyat = Console.ReadLine();
-            string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
-            SqlCommand komut = new SqlCommand(sorgu, hat);
-            komut.Parameters.AddWithValue("@musteriId", musteriId);
-            komut.Parameters.AddWithValue("@fiyat", fiyat);
-            komut.ExecuteNonQuery();
-            Console.WriteLine("Sipariş başarıyla eklendi.");
+            fiyat = fiyat.Replace('.', ',');
+            bool fiyatGecerli = decimal.TryParse(fiyat, out decimal fiyatSayisi);
+            if (fiyatGecerli && 0 < fiyatSayisi)
+            {
+                string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
+                SqlCommand komut = new SqlCommand(sorgu, hat);
+                komut.Parameters.AddWithValue("@musteriId", musteriId);
+                komut.Parameters.AddWithValue("@fiyat", fiyatSayisi);
+                komut.ExecuteNonQuery();
+                Console.WriteLine("Sipariş başarıyla eklendi.");
+            }
+            else
+            {
+                Console.WriteLine("Fiyat Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
+            }
+
         }
         catch
         {
