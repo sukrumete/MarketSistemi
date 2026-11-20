@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.ComponentModel.Design;
 
 string baglanti = "Server=localhost;Database=MarketDb;Trusted_Connection=True;TrustServerCertificate=True;";
 SqlConnection hat = new SqlConnection(baglanti);
@@ -34,28 +35,41 @@ while (devam)
         {
             Console.WriteLine("Lütfen Müşteri Id'sini Giriniz");
             string musteriId = Console.ReadLine();
-            Console.WriteLine("Lütfen Fiyatını Giriniz");
-            string fiyat = Console.ReadLine();
-            fiyat = fiyat.Replace('.', ',');
-            bool fiyatGecerli = decimal.TryParse(fiyat, out decimal fiyatSayisi);
-            if (fiyatGecerli && 0 < fiyatSayisi)
+            bool musteriIdGecerli = int.TryParse(musteriId, out int musteriIdSayisi);
+            if (musteriIdGecerli && 0 < musteriIdSayisi)
             {
-                string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
-                SqlCommand komut = new SqlCommand(sorgu, hat);
-                komut.Parameters.AddWithValue("@musteriId", musteriId);
-                komut.Parameters.AddWithValue("@fiyat", fiyatSayisi);
-                komut.ExecuteNonQuery();
-                Console.WriteLine("Sipariş başarıyla eklendi.");
+                Console.WriteLine("Lütfen Fiyatını Giriniz");
+                string fiyat = Console.ReadLine();
+                fiyat = fiyat.Replace('.', ',');
+                bool fiyatGecerli = decimal.TryParse(fiyat, out decimal fiyatSayisi);
+                if (fiyatGecerli && 0 < fiyatSayisi)
+                {
+                    string sorgu = "Insert into Siparisler (MusteriId, Fiyat ,Tarih) values (@musteriId, @fiyat, GETDATE())";
+                    SqlCommand komut = new SqlCommand(sorgu, hat);
+                    komut.Parameters.AddWithValue("@musteriId", musteriId);
+                    komut.Parameters.AddWithValue("@fiyat", fiyatSayisi);
+                    komut.ExecuteNonQuery();
+                    Console.WriteLine("Sipariş başarıyla eklendi.");
+                }
+                else
+                {
+                    Console.WriteLine("Fiyat Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
+                }
             }
             else
             {
-                Console.WriteLine("Fiyat Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
+                Console.WriteLine("Müşteri Id Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
             }
 
         }
-        catch
+        catch (SqlException hata)
+        {
+            Console.WriteLine("Bu Müşteri bulunamadı. Lütfen tekrar deneyin.");
+        }
+        catch (Exception hata)
         {
             Console.WriteLine("Geçersiz bir değer girdiniz. Lütfen tekrar deneyin.");
+            Console.WriteLine(hata.Message);
         }
     }
 
