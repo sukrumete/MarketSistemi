@@ -101,12 +101,14 @@ while (devam)
         {
             Console.WriteLine("Lütfen Sipariş Id'sini Giriniz");
             string siparisId = Console.ReadLine();
+            bool siparisIdGecerli = int.TryParse(siparisId, out int siparisIdSayisi);
             Console.WriteLine("Lütfen Ürün Id'sini Giriniz");
             string urunId = Console.ReadLine();
+            bool urunIdGecerli = int.TryParse(urunId, out int urunIdSayisi);
             Console.WriteLine("Lütfen Ürün Adetini Giriniz");
             string adet = Console.ReadLine();
             bool adetGecerli = int.TryParse(adet, out int adetSayisi);
-            if (adetGecerli && 0 < adetSayisi)
+            if (adetGecerli && 0 < adetSayisi && siparisIdGecerli && 0 < siparisIdSayisi && urunIdGecerli && 0 < urunIdSayisi)
             {
                 string sorgu = "Insert into SiparisKalemleri (SiparisId, UrunId, Adet) values (@siparisId, @urunId, @adet)";
                 SqlCommand komut = new SqlCommand(sorgu, hat);
@@ -122,7 +124,7 @@ while (devam)
             }
             else
             {
-                Console.WriteLine("Adet Sıfırdan Büyük Olmalıdır. Lütfen tekrar deneyin.");
+                Console.WriteLine("Lütfen geçerli bir Sipariş Id, Ürün Id ve Adet giriniz. Hepsi sıfırdan büyük olmalıdır. Lütfen tekrar deneyin.");
             }
 
         }
