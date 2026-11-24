@@ -112,13 +112,13 @@ while (devam)
             {
                 string sorgu = "Insert into SiparisKalemleri (SiparisId, UrunId, Adet) values (@siparisId, @urunId, @adet)";
                 SqlCommand komut = new SqlCommand(sorgu, hat);
-                komut.Parameters.AddWithValue("@siparisId", siparisId);
-                komut.Parameters.AddWithValue("@urunId", urunId);
-                komut.Parameters.AddWithValue("@adet", adet);
+                komut.Parameters.AddWithValue("@siparisId", siparisIdSayisi);
+                komut.Parameters.AddWithValue("@urunId", urunIdSayisi);
+                komut.Parameters.AddWithValue("@adet", adetSayisi);
                 komut.ExecuteNonQuery();
                 string guncelleSorgu = "UPDATE Siparisler SET Fiyat = (SELECT SUM(Fiyat * Adet) FROM SiparisKalemleri INNER JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId WHERE SiparisId = @siparisId) WHERE Id = @siparisId";
                 SqlCommand guncelleKomut = new SqlCommand(guncelleSorgu, hat);
-                guncelleKomut.Parameters.AddWithValue("@siparisId", siparisId);
+                guncelleKomut.Parameters.AddWithValue("@siparisId", siparisIdSayisi);
                 guncelleKomut.ExecuteNonQuery();
                 Console.WriteLine("Sipariş kalemi başarıyla eklendi.");
             }
@@ -128,7 +128,11 @@ while (devam)
             }
 
         }
-        catch
+        catch (SqlException hata)
+        {
+            Console.WriteLine("Bu Sipariş veya Ürün bulunamadı. Lütfen tekrar deneyin.");
+        }
+        catch (Exception)
         {
             Console.WriteLine("Geçersiz bir değer girdiniz. Lütfen tekrar deneyin.");
         }
