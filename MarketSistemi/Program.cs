@@ -20,15 +20,23 @@ while (devam)
 
     if (secim == "1")
     {
-        string sorgu = "SELECT * FROM Urunler";
-        SqlCommand komut = new SqlCommand(sorgu, hat);
-        SqlDataReader oku = komut.ExecuteReader();
-        while (oku.Read())
+        try
         {
-            Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"]);
+            string sorgu = "SELECT * FROM Urunler";
+            SqlCommand komut = new SqlCommand(sorgu, hat);
+            SqlDataReader oku = komut.ExecuteReader();
+            while (oku.Read())
+            {
+                Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"]);
+            }
+            oku.Close();
         }
-        oku.Close();
+        catch (SqlException hata)
+        {
+            Console.WriteLine("Ürün Listelenemedi");
+        }
     }
+
     if (secim == "2")
     {
         try
@@ -75,26 +83,42 @@ while (devam)
 
     if (secim == "3")
     {
-        string sorgu = "SELECT Isim, Soyad, Fiyat FROM Siparisler INNER JOIN Musteriler ON Musteriler.Id = Siparisler.MusteriId";
-        SqlCommand komut = new SqlCommand(sorgu, hat);
-        SqlDataReader oku = komut.ExecuteReader();
-        while (oku.Read())
+        try
         {
-            Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"]);
+            string sorgu = "SELECT Isim, Soyad, Fiyat FROM Siparisler INNER JOIN Musteriler ON Musteriler.Id = Siparisler.MusteriId";
+            SqlCommand komut = new SqlCommand(sorgu, hat);
+            SqlDataReader oku = komut.ExecuteReader();
+            while (oku.Read())
+            {
+                Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"]);
+            }
+            oku.Close();
         }
-        oku.Close();
+        catch (SqlException hata)
+        {
+            Console.WriteLine("Sipariş Listelenemedi");
+        }
     }
+
     if (secim == "4")
     {
-        string sorgu = "SELECT Isim, Fiyat, Adet From SiparisKalemleri Inner JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId";
-        SqlCommand komut = new SqlCommand(sorgu, hat);
-        SqlDataReader oku = komut.ExecuteReader();
-        while (oku.Read())
+        try
         {
-            Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"] + " - " + oku["Adet"]);
+            string sorgu = "SELECT Isim, Fiyat, Adet From SiparisKalemleri Inner JOIN Urunler ON Urunler.Id = SiparisKalemleri.UrunId";
+            SqlCommand komut = new SqlCommand(sorgu, hat);
+            SqlDataReader oku = komut.ExecuteReader();
+            while (oku.Read())
+            {
+                Console.WriteLine(oku["Isim"] + " - " + oku["Fiyat"] + " - " + oku["Adet"]);
+            }
+            oku.Close();
         }
-        oku.Close();
+        catch (SqlException hata)
+        {
+            Console.WriteLine("Sipariş Kalemleri Listelenemedi");
+        }
     }
+
     if (secim == "5")
     {
         try
